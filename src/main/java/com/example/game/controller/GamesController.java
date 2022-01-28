@@ -2,6 +2,8 @@ package com.example.game.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +33,7 @@ public class GamesController {
 	}
 	
 	@RequestMapping("/games/{id}")
-	public Games getGameByName(@PathVariable("id") long id)
+	public Games getGameByName(@Valid @PathVariable("id") long id)
 	{
 		return gameService.getGames(id);
 	}

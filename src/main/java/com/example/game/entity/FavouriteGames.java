@@ -18,8 +18,7 @@ public class FavouriteGames {
 	public FavouriteGames() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -32,7 +31,6 @@ public class FavouriteGames {
 	@ManyToOne
 	@JoinColumn(name = "user_id",nullable =false)
 	private User  user;
-	
 	
 	public long getId() {
 		return id;

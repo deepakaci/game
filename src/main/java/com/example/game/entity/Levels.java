@@ -21,18 +21,18 @@ public class Levels {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	public Levels(long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
-
 	@Column
 	private String name;
 	
 	@OneToOne(mappedBy = "level")
 	private FavouriteGames favouriteGames;
-
+	
+	public Levels(long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	
 	public long getId() {
 		return id;
 	}

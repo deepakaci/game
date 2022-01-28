@@ -33,7 +33,7 @@ public class GamesService {
 		return games;
 	}
 	
-	public Games getGames(long id) throws DataNotFoundException
+	public Games getGames(long id)
 	{
 	   	Games game=gameRepsoitory.findById(id).orElseThrow(()-> new DataNotFoundException("oops unable to find games"));
 	   	return game;

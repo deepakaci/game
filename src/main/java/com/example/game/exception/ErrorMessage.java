@@ -9,6 +9,7 @@ public class ErrorMessage {
 	private String errorMessage;
 	private HttpStatus status;
 	private ZonedDateTime dateTime;
+	
 
 	public String getErrorMessage() {
 		return errorMessage;

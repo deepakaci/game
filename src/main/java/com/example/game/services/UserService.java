@@ -19,33 +19,34 @@ public class UserService {
 	public User addUser(User user) {
 		return userRepsoitory.save(user);
 	}
-	
-	public User updateUser(Long id,User user) {
+
+	public User updateUser(Long id, User user) {
 		return userRepsoitory.save(user);
 	}
-	
+
 	public User updateUserCredit(User user, long userId, long creditValue) {
 		user.setCredits(creditValue);
 		return userRepsoitory.save(user);
 	}
 
 	public List<User> getAllUser() {
-
 		List<User> users = new ArrayList<>();
 		userRepsoitory.findAll().forEach(users::add);
 
 		return users;
 	}
-	
-	public User getUser(long id) throws DataNotFoundException
-	{
-	   	User user=userRepsoitory.findById(id).orElseThrow(()-> new DataNotFoundException("oops unable to find user"));
-	   	return user;
+
+	public User getUser(long id) {
+		return userRepsoitory.findById(id).orElseThrow(() -> new DataNotFoundException("user id is not avilable"));
 	}
 
 	public void deleteUser(long id) {
+		boolean exist = userRepsoitory.existsById(id);
+		if (!exist) {
+			throw new IllegalStateException("gamer with id " + id + " does not exists ");
+		}
 		userRepsoitory.deleteById(id);
-		
+
 	}
 
 }

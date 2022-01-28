@@ -1,37 +1,45 @@
+
 package com.example.game.exception;
 
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
 
 @RestControllerAdvice
-@Order(Ordered.HIGHEST_PRECEDENCE)
-public class DataNotFoundMapper {
-
-	@ExceptionHandler(value = { DataNotFoundException.class })
-	public ResponseEntity<Object> handleDataNotFoundException(DataNotFoundException e) {
-		ErrorMessage errorMessage = new ErrorMessage(e.getMessage(), HttpStatus.BAD_REQUEST,
-				ZonedDateTime.now(ZoneId.of("Asia/Kolkata")));
-
-		return new ResponseEntity<Object>(errorMessage, HttpStatus.BAD_REQUEST);
+public class DataNotFoundMapper extends ResponseEntityExceptionHandler {
+ 
+	@ExceptionHandler(NoSuchElementException.class)
+	public ErrorMessage handleNoSuchElementException(NoSuchElementException e){
+       ErrorMessage errorMessage= new ErrorMessage("custom no such element ",HttpStatus.BAD_REQUEST,ZonedDateTime.now());
+        return errorMessage; 
+	  }
+	
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		 Map<String, String> errors = new HashMap<>();
+		    ex.getBindingResult().getAllErrors().forEach((error) -> {
+		        String fieldName = ((FieldError) error).getField();
+		        String errorMessage = error.getDefaultMessage();
+		        errors.put(fieldName, errorMessage);
+		    });
+		return new ResponseEntity<Object>(errors,HttpStatus.BAD_REQUEST);
 	}
 	
-
+	
 	
 
-	    @ExceptionHandler(NoHandlerFoundException.class)
-	    public String handleNotFoundResourceException(HttpServletRequest request, NoHandlerFoundException e) {
-	       
-	       return "Requested resource wasn't found on the server";
-	       
-	    }
-	
 }
