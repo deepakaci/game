@@ -50,12 +50,6 @@ public class UserController {
 		userService.deleteUser(id);
 	}
 	
-	//POST api/v1/gamer/{gamer_id}/game /{game_id}/level/{level_id}	- create gamer interest level
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/users/{id1}/game/{id2}/level/{id3}")
-	public void addUserLevel(@Valid @RequestBody User user,@PathVariable long id1, @PathVariable long id2, @PathVariable long id3) {
-		userService.addUser(user,id1,id2,id3);
-	}
-
 
 }

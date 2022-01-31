@@ -27,7 +27,7 @@ public class GamesController {
 	}
 
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/game")
+	@RequestMapping(method = RequestMethod.POST, value = "/games")
 	public void addGame(@RequestBody  Games game) {
 		gameService.addGames(game);
 	}
@@ -38,14 +38,14 @@ public class GamesController {
 		return gameService.getGames(id);
 	}
 	
-	@RequestMapping(method = RequestMethod.DELETE, value = "/game/{id}")
+	@RequestMapping(method = RequestMethod.DELETE, value = "/games/{id}")
 	public void deleteGame(@PathVariable long id)
     {
 		gameService.deleteGame(id);
 
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, value = "/gmae/{id}")
+	@RequestMapping(method = RequestMethod.PUT, value = "/gmaes/{id}")
 	public Games updateGame(@RequestBody Games game, @PathVariable long id) {
 		
 		return gameService.updateGame(id, game);

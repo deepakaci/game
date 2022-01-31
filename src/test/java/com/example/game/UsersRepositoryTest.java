@@ -6,22 +6,16 @@ import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.core.annotation.Order;
-import org.springframework.data.repository.support.Repositories;
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
 
 import com.example.game.entity.Geography;
 import com.example.game.entity.User;
 import com.example.game.repository.UserRepsoitory;
-import com.fasterxml.jackson.annotation.OptBoolean;
-
-import lombok.val;
 
 @DataJpaTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -37,15 +31,13 @@ public class UsersRepositoryTest {
 		User user = User.builder().name("Deepak").nickName("deepu").gender("male").geoId(Geography.USA).build();
 		repsoitory.save(user);
 		Assertions.assertThat(user.getId()).isGreaterThan(0);
-
 	}
-
-	
 
 	@Test
 	@Order(value = 2)
 	@Rollback(value = false)
 	public void getUserTest() {
+		
 		User user = repsoitory.findById(1L).get();
 		Assertions.assertThat(user.getId()).isEqualTo(1L);
 	}
