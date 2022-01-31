@@ -13,9 +13,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
 @Entity
 @Table
-
+@Builder
+@Data
+@AllArgsConstructor
 public class User {
 
 	public User() {
@@ -31,7 +37,7 @@ public class User {
 	private String name;
 
 	@Column(name = "NickName")
-	private String nickname;
+	private String nickName;
 
 	@Enumerated(EnumType.STRING)
 	private Geography geoId;
@@ -49,6 +55,7 @@ public class User {
 
 	@OneToMany
 	private Set<Games> games;
+	
 
 	public Geography getGeoId() {
 		return geoId;
@@ -90,12 +97,12 @@ public class User {
 		this.name = name;
 	}
 
-	public String getNickname() {
-		return nickname;
+	
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
-
 }
